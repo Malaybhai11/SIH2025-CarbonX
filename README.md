@@ -37,15 +37,16 @@ It combines **blockchain, smart contracts, AI integration, and community tools**
 
 ---
 
-## 🛠️ Development Roadmap  
+## 🛠️ Development Roadmap 
 
-1. 🔹 Project setup with Next.js + Tailwind + shadcn  
-2. 🔹 Build UI components (login, dashboard, data upload, explorer)  
-3. 🔹 Smart contract design for carbon credits  
-4. 🔹 Blockchain integration (Polygon / Hyperledger testnet)  
-5. 🔹 Mobile upload flow (field data → blockchain)  
-6. 🔹 Admin tools & verification system  
-7. 🔹 Deployment on VM via Coolify  
+- [ ] Project setup with Next.js + Tailwind + shadcn  
+- [ ] Build UI components (login, dashboard, data upload, explorer)  
+- [ ] Smart contract design for carbon credits  
+- [ ] Blockchain integration (Polygon / Hyperledger testnet)  
+- [ ] Mobile upload flow (field data → blockchain)  
+- [ ] Admin tools & verification system  
+- [ ] Deployment on VM via Coolify  
+
 
 ---
 
