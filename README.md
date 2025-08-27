@@ -70,6 +70,12 @@ We’ll deploy CarbonX through **Coolify** on a custom VM:
 ## 🤝 Contributors  
 
 Team CarbonX – SIH 2025  
+- Malay Raval  
+- Vivek pankhaniya
+- Bhagirathsinh Rana  
+- Dev Patel  
+- Tisha Daudra
+- Khushi Bosamiya  
 
 ---
 
