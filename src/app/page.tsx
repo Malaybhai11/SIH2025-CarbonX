@@ -1,21 +1,20 @@
-import React  from "react";
+'use client';
+
+import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
-export default function LandingPage(){
-
+export default function LandingPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4 color">Welcome to Our Project CarbonX</h1>
-        <p className="text-lg mb-8">Background:</p>
-        <p className="text-md mb-8 max-w-2xl mx-auto">
-          Blue carbon ecosystem restoration is gaining importance in India's climate strategy. However, there is no decentralized, verifiable Monitoring, Reporting, and Verification (MRV) system that ensures transparency, accuracy, and carbon credit generation.
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+      <main className="flex flex-col items-center justify-center h-[calc(100vh-72px)] text-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Welcome to CarbonX
+        </h1>
+        <p className="text-gray-400 text-lg max-w-2xl">
+          A decentralized platform for Blue Carbon Ecosystem Restoration.
         </p>
-        <Link href="/about" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-          Learn More
-        </Link>
-      </div>
+      </main>
     </div>
-  )
+  );
 }
