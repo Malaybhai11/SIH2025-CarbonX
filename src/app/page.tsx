@@ -962,6 +962,9 @@ export default function LandingPage() {
             Smart India Hackathon 2025 | Team Task Titans
           </p>
         </div>
+        <div>
+          DNS Powered by <a href="http://www.dnsExit.com">DNS</a><a href="http://www.dnsExit.com">EXIT.COM</a>
+        </div>
       </footer>
     </div>
   );
