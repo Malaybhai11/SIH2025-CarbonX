@@ -87,10 +87,21 @@ import moneyAnimation from "@/components/lotties/MONEY.json";
 import ngosAnimation from "@/components/lotties/NGOS.json";
 import transparencyAnimation from "@/components/lotties/TRANSPARENCY.json";
 import verificationAnimation from "@/components/lotties/VERIFICATION.json";
+import AutoSwapParagraph from "@/components/AutoSwapParagraph";
+import SpaceBackground from "@/components/SpaceBackground";
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Add paragraphs and index state for AutoDots
+  const paragraphs = [
+    "Join the revolution in carbon credit management. Our blockchain-powered platform transforms how we verify, trade, and restore our planet's precious ecosystems through cutting-edge technology and community-driven environmental action.",
+    "Empower your business and community with transparent, AI-driven carbon credit solutions. CarbonX ensures every action for the planet is verified, impactful, and rewarded.",
+    "Experience the next generation of environmental stewardship—secure, scalable, and built for a sustainable future with CarbonX."
+  ];
+  // If you want to control the current paragraph index for AutoDots, add this state:
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -112,7 +123,12 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
+  <>
+    <div className="min-h-screen text-white overflow-hidden relative">
+        <div className="fixed top-0 left-0 w-full h-full bg-black/70 backdrop-blur-sm pointer-events-none">
+          <SpaceBackground>{null}</SpaceBackground>        
+        </div>
+      
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-800/20"></div>
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
@@ -228,7 +244,7 @@ export default function LandingPage() {
 
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none">
               <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
-                CARBONX
+                CarbonX
               </span>
             </h1>
 
@@ -236,26 +252,19 @@ export default function LandingPage() {
               SAVE OUR PLANET
             </h2>
 
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Join the <span className="text-blue-400 font-semibold">revolution</span> in carbon credit management. Our blockchain-powered platform transforms how we verify, trade, and restore our planet's precious ecosystems through cutting-edge technology and community-driven environmental action.
-            </p>
+            <div className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto overflow-hidden">
+              {/* Pass setIndex to AutoSwapParagraph if you want to sync dots */}
+              <AutoSwapParagraph />
+            </div>
 
-            <div className="mb-16 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-12 py-4 text-lg font-semibold border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transform hover:scale-105">
                 LEARN MORE
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm">
+              <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-blue-400 hover:text-white px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm hover:scale-105">
                 WATCH DEMO
               </Button>
             </div>
-          </div>
-
-          {/* Enhanced Pagination dots */}
-          <div className="flex justify-center space-x-4">
-            <div className="w-4 h-4 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
-            <div className="w-3 h-3 rounded-full bg-gray-600 mt-0.5"></div>
-            <div className="w-3 h-3 rounded-full bg-gray-600 mt-0.5"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-700 mt-1"></div>
           </div>
         </div>
       </main>
@@ -715,7 +724,7 @@ export default function LandingPage() {
 
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-red-600 bg-clip-text text-transparent">
-                TEAM TECH TITANS
+                 BLOCK BUSTER
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -736,7 +745,7 @@ export default function LandingPage() {
             {[
               {
                 name: "MALAY RAVAL",
-                role: "Team Lead, Technical Architect & Backend Engineer",
+                role: "Team Lead & Backend Engineer",
                 specialty: "Full-Stack • Blockchain • System Design • AI/ML",
                 gradient: "from-blue-500 to-cyan-500"
               },
@@ -967,5 +976,6 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
+  </>
   );
 }
