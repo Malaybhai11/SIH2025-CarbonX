@@ -1,11 +1,11 @@
+// pages/index.js
 "use client";
-
-import { SignIn } from "@clerk/nextjs";
+import SpaceBackground from '../../components/SpaceBackground';
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function SignInPage() {
+export default function Dashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
 
@@ -21,29 +21,30 @@ export default function SignInPage() {
       }
 
       const role = (user?.unsafeMetadata as any)?.role;
-      switch (role) {
-        case "admin":
-          router.push("/dashboard/admin");
-          break;
-        case "verifier":
-          router.push("/dashboard/verifier");
-          break;
-        case "local":
-          router.push("/dashboard/local");
-          break;
-        default:
-          router.push("/dashboard/organization");
+      if (role) {
+        if (role === "local") {
+          router.push(`/dashboard/local`);
+        } else {
+          router.push(`/dashboard/${role}`);
+        }
       }
     }
   }, [isLoaded, isSignedIn, user, router]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-black">
-      <SignIn 
-        path="/sign-in" 
-        routing="path" 
-        signUpUrl="/sign-up"
-      />
-    </div>
+    <SpaceBackground>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        minHeight: '100vh',
+        color: 'white',
+        textAlign: 'center'
+      }}>
+        <h1 style={{ fontSize: '4rem' }}>
+          Redirecting...
+        </h1>
+      </div>
+    </SpaceBackground>
   );
 }

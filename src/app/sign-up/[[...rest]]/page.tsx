@@ -1,11 +1,11 @@
 "use client";
 
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
 
@@ -39,10 +39,11 @@ export default function SignInPage() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-black">
-      <SignIn 
-        path="/sign-in" 
-        routing="path" 
-        signUpUrl="/sign-up"
+      <SignUp
+        path="/sign-up"
+        routing="path"
+        signInUrl="/sign-in"
+        afterSignUpUrl="/onboarding"
       />
     </div>
   );

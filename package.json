@@ -9,13 +9,21 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.31.6",
+    "@radix-ui/react-progress": "^1.1.7",
+    "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
+    "@types/leaflet": "^1.9.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "ethers": "^6.15.0",
+    "leaflet": "^1.9.4",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-leaflet": "^5.0.0",
+    "recharts": "^3.2.1",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
