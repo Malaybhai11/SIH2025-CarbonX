@@ -1,4 +1,5 @@
 // components/SpaceBackground.jsx
+"use client";
 import { useEffect, useState, ReactNode } from 'react';
 
 type Star = {

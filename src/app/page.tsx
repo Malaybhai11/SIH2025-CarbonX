@@ -88,10 +88,21 @@ import moneyAnimation from "@/components/lotties/MONEY.json";
 import ngosAnimation from "@/components/lotties/NGOS.json";
 import transparencyAnimation from "@/components/lotties/TRANSPARENCY.json";
 import verificationAnimation from "@/components/lotties/VERIFICATION.json";
+import AutoSwapParagraph from "@/components/AutoSwapParagraph";
+import SpaceBackground from "@/components/SpaceBackground";
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Add paragraphs and index state for AutoDots
+  const paragraphs = [
+    "Join the revolution in carbon credit management. Our blockchain-powered platform transforms how we verify, trade, and restore our planet's precious ecosystems through cutting-edge technology and community-driven environmental action.",
+    "Empower your business and community with transparent, AI-driven carbon credit solutions. CarbonX ensures every action for the planet is verified, impactful, and rewarded.",
+    "Experience the next generation of environmental stewardship—secure, scalable, and built for a sustainable future with CarbonX."
+  ];
+  // If you want to control the current paragraph index for AutoDots, add this state:
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -179,85 +190,63 @@ export default function LandingPage() {
               </button>
             </div>
           </div>
+        </div>
+      </nav>
 
-          {/* Mobile Menu */}
-          <div className={`md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-            <div className="px-6 py-4 space-y-4">
-              <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Home</a>
-              <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Features</a>
-              <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">About</a>
-              <a href="#service" onClick={(e) => handleNavClick(e, 'service')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Service</a>
-              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Contact</a>
+      {/* Main Hero Section */}
+      <main id="home" className="relative z-10 px-6 pt-20 pb-32">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {/* Floating Elements */}
+            <div className="absolute top-10 left-10 w-4 h-4 bg-blue-500 rounded-full opacity-60 animate-bounce"></div>
+            <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full opacity-40 animate-pulse"></div>
+            <div className="absolute bottom-20 left-1/4 w-3 h-3 bg-emerald-400 rounded-full opacity-50 animate-ping"></div>
 
-              {/* Mobile Authentication */}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-gray-800">
-                <SignedOut>
-                  <Link href="/sign-in">
-                    <Button variant="outline" className="w-full border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/sign-up">
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </SignedOut>
-                <SignedIn>
-                  <div className="flex justify-center">
-                    <UserButton
-                      appearance={{
-                        elements: {
-                          avatarBox: "w-8 h-8"
-                        }
-                      }}
-                    />
-                  </div>
-                </SignedIn>
-              </div>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
+                CarbonX
+              </span>
+            </h1>
+
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-light mb-8 text-blue-300 tracking-wider">
+              SAVE OUR PLANET
+            </h2>
+
+            <div className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto overflow-hidden">
+              {/* Pass setIndex to AutoSwapParagraph if you want to sync dots */}
+              <AutoSwapParagraph />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-12 py-4 text-lg font-semibold border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transform hover:scale-105">
+                LEARN MORE
+              </Button>
+              <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-blue-400 hover:text-white px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm hover:scale-105">
+                WATCH DEMO
+              </Button>
             </div>
           </div>
-        </nav>
+        </div>
+      </main>
 
-        {/* Main Hero Section */}
-        <main id="home" className="relative z-10 px-6 pt-20 pb-32">
-          <div className="max-w-7xl mx-auto text-center">
-            <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {/* Floating Elements */}
-              <div className="absolute top-10 left-10 w-4 h-4 bg-blue-500 rounded-full opacity-60 animate-bounce"></div>
-              <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full opacity-40 animate-pulse"></div>
-              <div className="absolute bottom-20 left-1/4 w-3 h-3 bg-emerald-400 rounded-full opacity-50 animate-ping"></div>
-
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none">
-                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
-                  CARBONX
-                </span>
-              </h1>
-
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-light mb-8 text-blue-300 tracking-wider">
-                SAVE OUR PLANET
-              </h2>
-
-              <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-                Join the <span className="text-blue-400 font-semibold">revolution</span> in carbon credit management. Our blockchain-powered platform transforms how we verify, trade, and restore our planet's precious ecosystems through cutting-edge technology and community-driven environmental action.
-              </p>
-
-              <div className="mb-16 flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-12 py-4 text-lg font-semibold border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transform hover:scale-105">
-                  LEARN MORE
-                </Button>
-                <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm">
-                  WATCH DEMO
-                </Button>
-              </div>
-            </div>
-
-            {/* Enhanced Pagination dots */}
-            <div className="flex justify-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-gray-600 mt-0.5"></div>
-              <div className="w-3 h-3 rounded-full bg-gray-600 mt-0.5"></div>
-              <div className="w-2 h-2 rounded-full bg-gray-700 mt-1"></div>
+      {/* Enhanced Features Section */}
+      <section id="features" className="relative z-10 px-6 py-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
+                Revolutionary Technology
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Experience the future of environmental conservation with our cutting-edge platform
+            </p>
+            <div className="flex justify-center items-center space-x-4 mt-8">
+              <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <div className="w-16 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+              <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+              <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
             </div>
           </div>
         </main>
@@ -714,15 +703,14 @@ export default function LandingPage() {
                   />
                 </div>
               </div>
-
-              <h2 className="text-5xl md:text-6xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-red-600 bg-clip-text text-transparent">
-                  TEAM TECH TITANS
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Meet the brilliant minds behind CarbonX - aspiring to win Smart India Hackathon 2025 and revolutionize carbon credit management
-              </p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-red-600 bg-clip-text text-transparent">
+                 BLOCK BUSTER
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Meet the brilliant minds behind CarbonX - aspiring to win Smart India Hackathon 2025 and revolutionize carbon credit management
+            </p>
 
               {/* Decorative Elements */}
               <div className="flex justify-center items-center space-x-4 mt-8">
@@ -734,54 +722,54 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "MALAY RAVAL",
-                  role: "Team Lead, Technical Architect & Backend Engineer",
-                  specialty: "Full-Stack • Blockchain • System Design • AI/ML",
-                  gradient: "from-blue-500 to-cyan-500"
-                },
-                {
-                  name: "BHAGIRATHSINH RANA",
-                  role: "Super Senior Frontend Engineer",
-                  specialty: "Designer • Expert Animators • Responsive Designs",
-                  gradient: "from-emerald-500 to-teal-500"
-                },
-                {
-                  name: "VIVEK PANKHANIYA",
-                  role: "Senior Blockchain Engineer",
-                  specialty: "Solidity • Web3 • Smart Contracts",
-                  gradient: "from-purple-500 to-pink-500"
-                },
-                {
-                  name: "DEV PATEL",
-                  role: "Senior Frontend Engineer",
-                  specialty: "React • Next.js • TypeScript • UI/UX",
-                  gradient: "from-orange-500 to-red-500"
-                },
-                {
-                  name: "TISHA DAUDRA",
-                  role: "Senior Product Manager",
-                  specialty: "Strategy • Analytics • Growth • UX",
-                  gradient: "from-indigo-500 to-purple-600"
-                },
-                {
-                  name: "KHUSHI BOSAMIYA",
-                  role: "Lead UI/UX Designer",
-                  specialty: "Design Systems • Figma • Prototyping",
-                  gradient: "from-green-500 to-emerald-600"
-                }
-              ].map((member, index) => (
-                <div key={index} className="group relative">
-                  <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-blue-500/20">
-                    {/* Card Front */}
-                    <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${member.gradient} flex items-center justify-center text-4xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                      ?
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 text-white text-center">{member.name}</h3>
-                    <p className="text-blue-400 text-center font-medium">{member.role}</p>
-                    <p className="text-gray-400 text-center text-sm mt-2">{member.specialty}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "MALAY RAVAL",
+                role: "Team Lead & Backend Engineer",
+                specialty: "Full-Stack • Blockchain • System Design • AI/ML",
+                gradient: "from-blue-500 to-cyan-500"
+              },
+              {
+                name: "BHAGIRATHSINH RANA",
+                role: "Super Senior Frontend Engineer",
+                specialty: "Designer • Expert Animators • Responsive Designs",
+                gradient: "from-emerald-500 to-teal-500"
+              },
+              {
+                name: "VIVEK PANKHANIYA",
+                role: "Senior Blockchain Engineer",
+                specialty: "Solidity • Web3 • Smart Contracts",
+                gradient: "from-purple-500 to-pink-500"
+              },
+              {
+                name: "DEV PATEL",
+                role: "Senior Frontend Engineer",
+                specialty: "React • Next.js • TypeScript • UI/UX",
+                gradient: "from-orange-500 to-red-500"
+              },
+              {
+                name: "TISHA DAUDRA",
+                role: "Senior Product Manager",
+                specialty: "Strategy • Analytics • Growth • UX",
+                gradient: "from-indigo-500 to-purple-600"
+              },
+              {
+                name: "KHUSHI BOSAMIYA",
+                role: "Lead UI/UX Designer",
+                specialty: "Design Systems • Figma • Prototyping",
+                gradient: "from-green-500 to-emerald-600"
+              }
+            ].map((member, index) => (
+              <div key={index} className="group relative">
+                <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-blue-500/20">
+                  {/* Card Front */}
+                  <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${member.gradient} flex items-center justify-center text-4xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                    ?
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-white text-center">{member.name}</h3>
+                  <p className="text-blue-400 text-center font-medium">{member.role}</p>
+                  <p className="text-gray-400 text-center text-sm mt-2">{member.specialty}</p>
 
                     {/* Hover Indicator */}
                     <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -964,8 +952,18 @@ export default function LandingPage() {
               Smart India Hackathon 2025 | Team Task Titans
             </p>
           </div>
-        </footer>
-      </div>
-    </SpaceBackground>
-  );  
+          <p className="text-gray-400 mb-4">
+            © 2025 CarbonX. Building the future of carbon credit management.
+          </p>
+          <p className="text-sm text-gray-500">
+            Smart India Hackathon 2025 | Team Task Titans
+          </p>
+        </div>
+        <div>
+          DNS Powered by <a href="http://www.dnsExit.com">DNS</a><a href="http://www.dnsExit.com">EXIT.COM</a>
+        </div>
+      </footer>
+    </div>
+  </>
+  );
 }
