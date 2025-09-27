@@ -26,7 +26,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#00ff00", // Green color to match the space theme
+        },
+        elements: {
+          card: "bg-black border border-gray-800",
+          headerTitle: "text-white",
+          headerSubtitle: "text-gray-400",
+          socialButtonsBlockButton: "bg-gray-900 text-white border-gray-700",
+          socialButtonsBlockButtonText: "text-white",
+          formButtonPrimary: "bg-green-600 hover:bg-green-700",
+          navbar: "bg-gray-900",
+          navbarMobileMenuButton: "text-white",
+          formFieldInput: "bg-gray-900 text-white border-gray-700",
+          formFieldLabel: "text-white",
+          footerAction: "text-green-400",
+          footerActionLink: "text-green-400 hover:text-green-300",
+        },
+      }}
+    >
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}

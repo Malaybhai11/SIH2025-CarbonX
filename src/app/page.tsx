@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
+import SpaceBackground from "@/components/SpaceBackground";
 
 // Dynamically import Lottie components with proper setup
 const AccuracyLottie = dynamic(() => import("lottie-react"), {
@@ -123,102 +124,47 @@ export default function LandingPage() {
   };
 
   return (
-  <>
-    <div className="min-h-screen text-white overflow-hidden relative">
-        <div className="fixed top-0 left-0 w-full h-full bg-black/70 backdrop-blur-sm pointer-events-none">
-          <SpaceBackground>{null}</SpaceBackground>        
-        </div>
-      
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-800/20"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+    <SpaceBackground>
+      <div className="min-h-screen bg-black text-white overflow-hidden relative">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-blue-800/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 p-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">C</span>
-            </div>
-            <span className="text-2xl font-bold text-white">
-              CarbonX
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Home</a>
-            <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Features</a>
-            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">About</a>
-            <a href="#service" onClick={(e) => handleNavClick(e, 'service')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Service</a>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Contact</a>
-
-            {/* Authentication Section */}
-            <div className="flex items-center space-x-4">
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button variant="outline" className="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/sign-up">
-                  <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
-                    Sign Up
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-8 h-8"
-                    }
-                  }}
-                />
-              </SignedIn>
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white focus:outline-none"
-            >
-              <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
-                <span className={`block w-5 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-                <span className={`block w-5 h-0.5 bg-white transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`block w-5 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+        {/* Navigation */}
+        <nav className="relative z-10 p-6">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">C</span>
               </div>
-            </button>
-          </div>
-        </div>
+              <span className="text-2xl font-bold text-white">
+                CarbonX
+              </span>
+            </div>
 
-        {/* Mobile Menu */}
-        <div className={`md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-          <div className="px-6 py-4 space-y-4">
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Home</a>
-            <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Features</a>
-            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">About</a>
-            <a href="#service" onClick={(e) => handleNavClick(e, 'service')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Service</a>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="block text-gray-300 hover:text-blue-400 transition-colors py-2">Contact</a>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Home</a>
+              <a href="#features" onClick={(e) => handleNavClick(e, 'features')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Features</a>
+              <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">About</a>
+              <a href="#service" onClick={(e) => handleNavClick(e, 'service')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Service</a>
+              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="text-gray-300 hover:text-blue-400 transition-colors cursor-pointer">Contact</a>
 
-            {/* Mobile Authentication */}
-            <div className="flex flex-col space-y-2 pt-4 border-t border-gray-800">
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button variant="outline" className="w-full border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/sign-up">
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
-                    Sign Up
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <div className="flex justify-center">
+              {/* Authentication Section */}
+              <div className="flex items-center space-x-4">
+                <SignedOut>
+                  <Link href="/sign-in">
+                    <Button variant="outline" className="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link href="/sign-up">
+                    <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </SignedOut>
+                <SignedIn>
                   <UserButton
                     appearance={{
                       elements: {
@@ -226,8 +172,22 @@ export default function LandingPage() {
                       }
                     }}
                   />
+                </SignedIn>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white focus:outline-none"
+              >
+                <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                  <span className={`block w-5 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+                  <span className={`block w-5 h-0.5 bg-white transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                  <span className={`block w-5 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
                 </div>
-              </SignedIn>
+              </button>
             </div>
           </div>
         </div>
@@ -289,439 +249,460 @@ export default function LandingPage() {
               <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
             </div>
           </div>
+        </main>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
-              <div className="relative mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
-                  <div className="flex items-center justify-center w-full h-full">
-                    <BlockchainLottie
-                      animationData={blockchainAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-16 h-16"
-                    />
-                  </div>
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                  1
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-300 transition-colors">Immutable Registry</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
-                Blockchain-powered verification ensures 99.99% uptime with immutable audit trails and complete transparency
+        {/* Enhanced Features Section */}
+        <section id="features" className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
+                  Revolutionary Technology
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Experience the future of environmental conservation with our cutting-edge platform
               </p>
-              <div className="mt-6 flex items-center text-sm text-blue-400">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                99.99% Uptime SLA
-              </div>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
-              <div className="relative mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
-                  <div className="flex items-center justify-center w-full h-full">
-                    <AILottie
-                      animationData={aiAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-16 h-16"
-                    />
-                  </div>
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                  2
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">AI-Powered Verification</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
-                Real-time automated validation using satellite imagery, drone surveillance, and advanced computer vision
-              </p>
-              <div className="mt-6 flex items-center text-sm text-purple-400">
-                <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
-                99.9% Accuracy Rate
-              </div>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="relative mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
-                  <div className="flex items-center justify-center w-full h-full">
-                    <CommunityLottie
-                      animationData={communityAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-16 h-16"
-                    />
-                  </div>
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                  3
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-emerald-300 transition-colors">Community Ecosystem</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
-                Mobile-first data collection with gamified user engagement, NGO collaboration, and government integration
-              </p>
-              <div className="mt-6 flex items-center text-sm text-emerald-400">
-                <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
-                Global Community
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Stats Section */}
-      <section className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
-                Performance Metrics
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Real-time analytics showcasing CarbonX's superior performance compared to traditional carbon credit systems
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
-              <div className="text-center">
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                    <AccuracyLottie
-                      animationData={accuracyAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-12 h-12"
-                    />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                    ✓
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-blue-400 mb-2 group-hover:text-blue-300 transition-colors">99.9%</div>
-                <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Accuracy Rate</div>
-                <div className="mt-3 text-xs text-emerald-400 font-medium">AI-Powered Precision</div>
-              </div>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
-              <div className="text-center">
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                    <FastLottie
-                      animationData={fastAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-12 h-12"
-                    />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                    ✓
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-purple-400 mb-2 group-hover:text-purple-300 transition-colors">1000x</div>
-                <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Faster Processing</div>
-                <div className="mt-3 text-xs text-purple-400 font-medium">Lightning Speed</div>
-              </div>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="text-center">
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                    <MoneyLottie
-                      animationData={moneyAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-12 h-12"
-                    />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                    ✓
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-emerald-400 mb-2 group-hover:text-emerald-300 transition-colors">90%</div>
-                <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Cost Reduction</div>
-                <div className="mt-3 text-xs text-emerald-400 font-medium">Maximum Savings</div>
-              </div>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/10">
-              <div className="text-center">
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                    <TransparencyLottie
-                      animationData={transparencyAnimation}
-                      loop={true}
-                      autoplay={true}
-                      className="w-12 h-12"
-                    />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
-                    ✓
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-cyan-400 mb-2 group-hover:text-cyan-300 transition-colors">100%</div>
-                <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Transparency</div>
-                <div className="mt-3 text-xs text-cyan-400 font-medium">Complete Visibility</div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Comparison Bar */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex items-center space-x-6 bg-gray-900/50 border border-gray-700 rounded-full px-8 py-4 backdrop-blur-sm">
-              <span className="text-gray-400 text-sm">Traditional Systems</span>
-              <div className="flex space-x-2">
-                <div className="w-8 h-2 bg-red-500/50 rounded-full"></div>
-                <div className="w-8 h-2 bg-red-400/50 rounded-full"></div>
-                <div className="w-8 h-2 bg-red-300/50 rounded-full"></div>
-              </div>
-              <span className="text-blue-400 font-bold">VS</span>
-              <div className="flex space-x-2">
-                <div className="w-8 h-2 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50"></div>
-                <div className="w-8 h-2 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"></div>
-                <div className="w-8 h-2 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"></div>
-                <div className="w-8 h-2 bg-purple-400 rounded-full shadow-lg shadow-purple-400/50"></div>
-              </div>
-              <span className="text-emerald-400 text-sm font-semibold">CarbonX</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-                About CarbonX
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Revolutionizing carbon credit management through blockchain innovation and AI-powered verification
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-3xl font-bold mb-6 text-white">Our Mission</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">
-                CarbonX is pioneering the future of environmental conservation by creating a transparent, efficient, and scalable platform for carbon credit management. We combine cutting-edge blockchain technology with artificial intelligence to ensure every carbon credit is verifiable, traceable, and impactful.
-              </p>
-              <p className="text-gray-300 leading-relaxed mb-6">
-                Our platform empowers communities, businesses, and governments to participate in the global carbon market with confidence, knowing that their environmental efforts are backed by immutable technology and real-time verification.
-              </p>
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">🌍</span>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-white">Global Impact</h4>
-                  <p className="text-gray-400">Connecting stakeholders worldwide</p>
-                </div>
+              <div className="flex justify-center items-center space-x-4 mt-8">
+                <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-16 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+                <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
               </div>
             </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl"></div>
-              <Card className="relative bg-gray-900/50 border-gray-700 backdrop-blur-sm p-8">
-                <h4 className="text-2xl font-bold mb-4 text-white">Key Achievements</h4>
-                <ul className="space-y-4">
-                  <li className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="text-white font-medium">99.9% Verification Accuracy</span>
-                      <p className="text-gray-400 text-sm">AI-powered validation system</p>
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
+                    <div className="flex items-center justify-center w-full h-full">
+                      <BlockchainLottie
+                        animationData={blockchainAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-16 h-16"
+                      />
                     </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-cyan-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="text-white font-medium">1000x Faster Processing</span>
-                      <p className="text-gray-400 text-sm">Compared to traditional methods</p>
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                    1
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-300 transition-colors">Immutable Registry</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
+                  Blockchain-powered verification ensures 99.99% uptime with immutable audit trails and complete transparency
+                </p>
+                <div className="mt-6 flex items-center text-sm text-blue-400">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                  99.99% Uptime SLA
+                </div>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
+                    <div className="flex items-center justify-center w-full h-full">
+                      <AILottie
+                        animationData={aiAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-16 h-16"
+                      />
                     </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="text-white font-medium">90% Cost Reduction</span>
-                      <p className="text-gray-400 text-sm">Lower verification expenses</p>
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                    2
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">AI-Powered Verification</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
+                  Real-time automated validation using satellite imagery, drone surveillance, and advanced computer vision
+                </p>
+                <div className="mt-6 flex items-center text-sm text-purple-400">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                  99.9% Accuracy Rate
+                </div>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto">
+                    <div className="flex items-center justify-center w-full h-full">
+                      <CommunityLottie
+                        animationData={communityAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-16 h-16"
+                      />
                     </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="text-white font-medium">100% Transparency</span>
-                      <p className="text-gray-400 text-sm">Blockchain-backed audit trails</p>
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                    3
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-emerald-300 transition-colors">Community Ecosystem</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors">
+                  Mobile-first data collection with gamified user engagement, NGO collaboration, and government integration
+                </p>
+                <div className="mt-6 flex items-center text-sm text-emerald-400">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+                  Global Community
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Enhanced Stats Section */}
+        <section className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+                  Performance Metrics
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Real-time analytics showcasing CarbonX's superior performance compared to traditional carbon credit systems
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                <div className="text-center">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <AccuracyLottie
+                        animationData={accuracyAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-12 h-12"
+                      />
                     </div>
-                  </li>
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                      ✓
+                    </div>
+                  </div>
+                  <div className="text-4xl font-bold text-blue-400 mb-2 group-hover:text-blue-300 transition-colors">99.9%</div>
+                  <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Accuracy Rate</div>
+                  <div className="mt-3 text-xs text-emerald-400 font-medium">AI-Powered Precision</div>
+                </div>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
+                <div className="text-center">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <FastLottie
+                        animationData={fastAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-12 h-12"
+                      />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                      ✓
+                    </div>
+                  </div>
+                  <div className="text-4xl font-bold text-purple-400 mb-2 group-hover:text-purple-300 transition-colors">1000x</div>
+                  <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Faster Processing</div>
+                  <div className="mt-3 text-xs text-purple-400 font-medium">Lightning Speed</div>
+                </div>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
+                <div className="text-center">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <MoneyLottie
+                        animationData={moneyAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-12 h-12"
+                      />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                      ✓
+                    </div>
+                  </div>
+                  <div className="text-4xl font-bold text-emerald-400 mb-2 group-hover:text-emerald-300 transition-colors">90%</div>
+                  <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Cost Reduction</div>
+                  <div className="mt-3 text-xs text-emerald-400 font-medium">Maximum Savings</div>
+                </div>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div className="text-center">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <TransparencyLottie
+                        animationData={transparencyAnimation}
+                        loop={true}
+                        autoplay={true}
+                        className="w-12 h-12"
+                      />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">
+                      ✓
+                    </div>
+                  </div>
+                  <div className="text-4xl font-bold text-cyan-400 mb-2 group-hover:text-cyan-300 transition-colors">100%</div>
+                  <div className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">Transparency</div>
+                  <div className="mt-3 text-xs text-cyan-400 font-medium">Complete Visibility</div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Comparison Bar */}
+            <div className="mt-16 text-center">
+              <div className="inline-flex items-center space-x-6 bg-gray-900/50 border border-gray-700 rounded-full px-8 py-4 backdrop-blur-sm">
+                <span className="text-gray-400 text-sm">Traditional Systems</span>
+                <div className="flex space-x-2">
+                  <div className="w-8 h-2 bg-red-500/50 rounded-full"></div>
+                  <div className="w-8 h-2 bg-red-400/50 rounded-full"></div>
+                  <div className="w-8 h-2 bg-red-300/50 rounded-full"></div>
+                </div>
+                <span className="text-blue-400 font-bold">VS</span>
+                <div className="flex space-x-2">
+                  <div className="w-8 h-2 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50"></div>
+                  <div className="w-8 h-2 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"></div>
+                  <div className="w-8 h-2 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"></div>
+                  <div className="w-8 h-2 bg-purple-400 rounded-full shadow-lg shadow-purple-400/50"></div>
+                </div>
+                <span className="text-emerald-400 text-sm font-semibold">CarbonX</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                  About CarbonX
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Revolutionizing carbon credit management through blockchain innovation and AI-powered verification
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h3 className="text-3xl font-bold mb-6 text-white">Our Mission</h3>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  CarbonX is pioneering the future of environmental conservation by creating a transparent, efficient, and scalable platform for carbon credit management. We combine cutting-edge blockchain technology with artificial intelligence to ensure every carbon credit is verifiable, traceable, and impactful.
+                </p>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  Our platform empowers communities, businesses, and governments to participate in the global carbon market with confidence, knowing that their environmental efforts are backed by immutable technology and real-time verification.
+                </p>
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">🌍</span>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white">Global Impact</h4>
+                    <p className="text-gray-400">Connecting stakeholders worldwide</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl"></div>
+                <Card className="relative bg-gray-900/50 border-gray-700 backdrop-blur-sm p-8">
+                  <h4 className="text-2xl font-bold mb-4 text-white">Key Achievements</h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                      <div>
+                        <span className="text-white font-medium">99.9% Verification Accuracy</span>
+                        <p className="text-gray-400 text-sm">AI-powered validation system</p>
+                      </div>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-cyan-500 rounded-full mt-2"></div>
+                      <div>
+                        <span className="text-white font-medium">1000x Faster Processing</span>
+                        <p className="text-gray-400 text-sm">Compared to traditional methods</p>
+                      </div>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2"></div>
+                      <div>
+                        <span className="text-white font-medium">90% Cost Reduction</span>
+                        <p className="text-gray-400 text-sm">Lower verification expenses</p>
+                      </div>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                      <div>
+                        <span className="text-white font-medium">100% Transparency</span>
+                        <p className="text-gray-400 text-sm">Blockchain-backed audit trails</p>
+                      </div>
+                    </li>
+                  </ul>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Service Section */}
+        <section id="service" className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  Our Services
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Comprehensive carbon credit management solutions powered by blockchain and AI
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <ChainLottie
+                    animationData={chainAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-300 transition-colors">Carbon Registry</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Secure blockchain-based carbon credit registration and management with immutable audit trails
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Real-time verification</li>
+                  <li>• Immutable records</li>
+                  <li>• Global accessibility</li>
+                </ul>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <VerificationLottie
+                    animationData={verificationAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">AI Verification</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Advanced AI-powered validation using satellite imagery and computer vision technology
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Satellite analysis</li>
+                  <li>• Drone integration</li>
+                  <li>• 99.9% accuracy</li>
+                </ul>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <GlobeLottie
+                    animationData={globeAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-emerald-300 transition-colors">Marketplace</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Transparent trading platform for carbon credits with smart contract automation
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Automated trading</li>
+                  <li>• Price transparency</li>
+                  <li>• Instant settlement</li>
+                </ul>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <AnalyticsLottie
+                    animationData={analyticsAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-orange-300 transition-colors">Analytics Dashboard</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Real-time analytics and reporting for carbon credit performance and environmental impact
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Performance metrics</li>
+                  <li>• Impact tracking</li>
+                  <li>• Custom reports</li>
+                </ul>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <NgosLottie
+                    animationData={ngosAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-indigo-300 transition-colors">NGO Integration</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Seamless collaboration tools for NGOs, governments, and environmental organizations
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Project collaboration</li>
+                  <li>• Data sharing</li>
+                  <li>• Impact measurement</li>
+                </ul>
+              </Card>
+
+              <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-green-500/10">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <MobileLottie
+                    animationData={mobileAnimation}
+                    loop={true}
+                    autoplay={true}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-green-300 transition-colors">Mobile App</h3>
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
+                  Mobile-first platform for data collection, verification, and community engagement
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Offline capability</li>
+                  <li>• Gamification</li>
+                  <li>• Real-time sync</li>
                 </ul>
               </Card>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Service Section */}
-      <section id="service" className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Our Services
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Comprehensive carbon credit management solutions powered by blockchain and AI
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <ChainLottie
-                  animationData={chainAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
+        {/* Team Section */}
+        <section className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              {/* Team Emblem */}
+              <div className="mb-8 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-xl"></div>
+                  <img
+                    src="/erasebg-transformed.png"
+                    alt="Team Tech Titans Emblem"
+                    className="relative w-32 h-32 md:w-40 md:h-40 object-contain animate-pulse"
+                  />
+                </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-300 transition-colors">Carbon Registry</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Secure blockchain-based carbon credit registration and management with immutable audit trails
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Real-time verification</li>
-                <li>• Immutable records</li>
-                <li>• Global accessibility</li>
-              </ul>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <VerificationLottie
-                  animationData={verificationAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">AI Verification</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Advanced AI-powered validation using satellite imagery and computer vision technology
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Satellite analysis</li>
-                <li>• Drone integration</li>
-                <li>• 99.9% accuracy</li>
-              </ul>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <GlobeLottie
-                  animationData={globeAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-emerald-300 transition-colors">Marketplace</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Transparent trading platform for carbon credits with smart contract automation
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Automated trading</li>
-                <li>• Price transparency</li>
-                <li>• Instant settlement</li>
-              </ul>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <AnalyticsLottie
-                  animationData={analyticsAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-orange-300 transition-colors">Analytics Dashboard</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Real-time analytics and reporting for carbon credit performance and environmental impact
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Performance metrics</li>
-                <li>• Impact tracking</li>
-                <li>• Custom reports</li>
-              </ul>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <NgosLottie
-                  animationData={ngosAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-indigo-300 transition-colors">NGO Integration</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Seamless collaboration tools for NGOs, governments, and environmental organizations
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Project collaboration</li>
-                <li>• Data sharing</li>
-                <li>• Impact measurement</li>
-              </ul>
-            </Card>
-
-            <Card className="bg-gray-900/30 border-gray-700 backdrop-blur-sm p-8 hover:bg-gray-800/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-green-500/10">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <MobileLottie
-                  animationData={mobileAnimation}
-                  loop={true}
-                  autoplay={true}
-                  className="w-12 h-12"
-                />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-green-300 transition-colors">Mobile App</h3>
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors mb-4">
-                Mobile-first platform for data collection, verification, and community engagement
-              </p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Offline capability</li>
-                <li>• Gamification</li>
-                <li>• Real-time sync</li>
-              </ul>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            {/* Team Emblem */}
-            <div className="mb-8 flex justify-center">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-xl"></div>
-                <img
-                  src="/erasebg-transformed.png"
-                  alt="Team Tech Titans Emblem"
-                  className="relative w-32 h-32 md:w-40 md:h-40 object-contain animate-pulse"
-                />
-              </div>
-            </div>
-
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-red-600 bg-clip-text text-transparent">
                  BLOCK BUSTER
@@ -731,15 +712,15 @@ export default function LandingPage() {
               Meet the brilliant minds behind CarbonX - aspiring to win Smart India Hackathon 2025 and revolutionize carbon credit management
             </p>
 
-            {/* Decorative Elements */}
-            <div className="flex justify-center items-center space-x-4 mt-8">
-              <div className="w-16 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
-              <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
-              <div className="w-20 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-              <div className="w-3 h-3 bg-cyan-500 rounded-full animate-bounce"></div>
-              <div className="w-16 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
+              {/* Decorative Elements */}
+              <div className="flex justify-center items-center space-x-4 mt-8">
+                <div className="w-16 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+                <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
+                <div className="w-20 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+                <div className="w-3 h-3 bg-cyan-500 rounded-full animate-bounce"></div>
+                <div className="w-16 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
+              </div>
             </div>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -790,179 +771,186 @@ export default function LandingPage() {
                   <p className="text-blue-400 text-center font-medium">{member.role}</p>
                   <p className="text-gray-400 text-center text-sm mt-2">{member.specialty}</p>
 
-                  {/* Hover Indicator */}
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <span className="text-blue-400 font-semibold">Hover for details</span>
-                  </div>
-                </Card>
-
-                {/* Hover Details Card */}
-                <Card className="absolute top-0 left-0 w-full bg-gray-900/95 border-blue-500/50 backdrop-blur-sm p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 pointer-events-none z-10">
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${member.gradient} flex items-center justify-center text-2xl mb-4 mx-auto`}>
-                    ?
-                  </div>
-                  <h3 className="text-lg font-bold mb-2 text-white text-center">{member.name}</h3>
-                  <p className="text-blue-400 text-center font-medium text-sm mb-2">{member.role}</p>
-                  <p className="text-gray-300 text-center text-xs mb-3">{member.specialty}</p>
-                  <div className="text-center">
-                    <div className="inline-flex items-center space-x-4 text-xs text-gray-400">
-                      <span>💡 Innovation</span>
-                      <span>⚡ Excellence</span>
-                      <span>🚀 Leadership</span>
+                    {/* Hover Indicator */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <span className="text-blue-400 font-semibold">Hover for details</span>
                     </div>
-                  </div>
-                </Card>
-              </div>
-            ))}
-          </div>
+                  </Card>
 
-          {/* Team Badge */}
-          <div className="text-center mt-16">
-            <div className="inline-flex items-center space-x-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 rounded-full px-8 py-4 backdrop-blur-sm">
-              <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-              <span className="text-blue-400 font-semibold">Aspiring for Smart India Hackathon 2025</span>
-              <div className="w-3 h-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
+                  {/* Hover Details Card */}
+                  <Card className="absolute top-0 left-0 w-full bg-gray-900/95 border-blue-500/50 backdrop-blur-sm p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 pointer-events-none z-10">
+                    <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${member.gradient} flex items-center justify-center text-2xl mb-4 mx-auto`}>
+                      ?
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 text-white text-center">{member.name}</h3>
+                    <p className="text-blue-400 text-center font-medium text-sm mb-2">{member.role}</p>
+                    <p className="text-gray-300 text-center text-xs mb-3">{member.specialty}</p>
+                    <div className="text-center">
+                      <div className="inline-flex items-center space-x-4 text-xs text-gray-400">
+                        <span>💡 Innovation</span>
+                        <span>⚡ Excellence</span>
+                        <span>🚀 Leadership</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+
+            {/* Team Badge */}
+            <div className="text-center mt-16">
+              <div className="inline-flex items-center space-x-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/30 rounded-full px-8 py-4 backdrop-blur-sm">
+                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
+                <span className="text-blue-400 font-semibold">Aspiring for Smart India Hackathon 2025</span>
+                <div className="w-3 h-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-                Get In Touch
+        {/* Contact Section */}
+        <section id="contact" className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
+                  Get In Touch
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Ready to revolutionize your carbon credit management? Let's discuss how CarbonX can transform your environmental impact
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              <div>
+                <h3 className="text-3xl font-bold mb-6 text-white">Contact Information</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl">📧</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white">Email</h4>
+                      <p className="text-gray-400">team@carbonx.tech</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl">📱</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white">Phone</h4>
+                      <p className="text-gray-400">+91 98765 43210</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl">📍</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white">Location</h4>
+                      <p className="text-gray-400">Ahmedabad, Gujarat, India</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+                  <div className="flex space-x-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                      <span className="text-white">📘</span>
+                    </div>
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                      <span className="text-white">🐦</span>
+                    </div>
+                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                      <span className="text-white">💼</span>
+                    </div>
+                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                      <span className="text-white">📧</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-2xl blur-xl"></div>
+                <Card className="relative bg-gray-900/50 border-gray-700 backdrop-blur-sm p-8">
+                  <h4 className="text-2xl font-bold mb-6 text-white">Send us a Message</h4>
+                  <form className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                          placeholder="John"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                          placeholder="Doe"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                      <input
+                        type="email"
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
+                        placeholder="How can we help?"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                      <textarea
+                        rows={4}
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white resize-none"
+                        placeholder="Tell us about your project..."
+                      ></textarea>
+                    </div>
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white py-3 font-semibold"
+                      onClick={() => alert('Thank you for your message! We will get back to you soon.')}
+                    >
+                      Send Message
+                    </Button>
+                  </form>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="relative z-10 px-6 py-12 border-t border-gray-800">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">C</span>
+              </div>
+              <span className="text-xl font-bold text-white">
+                CarbonX
               </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Ready to revolutionize your carbon credit management? Let's discuss how CarbonX can transform your environmental impact
+            </div>
+            <p className="text-gray-400 mb-4">
+              © 2025 CarbonX. Building the future of carbon credit management.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-3xl font-bold mb-6 text-white">Contact Information</h3>
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xl">📧</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-white">Email</h4>
-                    <p className="text-gray-400">team@carbonx.tech</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xl">📱</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-white">Phone</h4>
-                    <p className="text-gray-400">+91 98765 43210</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xl">📍</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-white">Location</h4>
-                    <p className="text-gray-400">Ahmedabad, Gujarat, India</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
-                <div className="flex space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                    <span className="text-white">📘</span>
-                  </div>
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                    <span className="text-white">🐦</span>
-                  </div>
-                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                    <span className="text-white">💼</span>
-                  </div>
-                  <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                    <span className="text-white">📧</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-2xl blur-xl"></div>
-              <Card className="relative bg-gray-900/50 border-gray-700 backdrop-blur-sm p-8">
-                <h4 className="text-2xl font-bold mb-6 text-white">Send us a Message</h4>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">First Name</label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-                        placeholder="John"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-                        placeholder="Doe"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                    <input
-                      type="email"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-                    <input
-                      type="text"
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white"
-                      placeholder="How can we help?"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 text-white resize-none"
-                      placeholder="Tell us about your project..."
-                    ></textarea>
-                  </div>
-                  <Button
-                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white py-3 font-semibold"
-                    onClick={() => alert('Thank you for your message! We will get back to you soon.')}
-                  >
-                    Send Message
-                  </Button>
-                </form>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative z-10 px-6 py-12 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
-            </div>
-            <span className="text-xl font-bold text-white">
-              CarbonX
-            </span>
+            <p className="text-sm text-gray-500">
+              Smart India Hackathon 2025 | Team Task Titans
+            </p>
           </div>
           <p className="text-gray-400 mb-4">
             © 2025 CarbonX. Building the future of carbon credit management.
