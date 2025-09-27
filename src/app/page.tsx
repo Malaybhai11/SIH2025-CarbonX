@@ -89,7 +89,6 @@ import ngosAnimation from "@/components/lotties/NGOS.json";
 import transparencyAnimation from "@/components/lotties/TRANSPARENCY.json";
 import verificationAnimation from "@/components/lotties/VERIFICATION.json";
 import AutoSwapParagraph from "@/components/AutoSwapParagraph";
-import SpaceBackground from "@/components/SpaceBackground";
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -190,66 +189,66 @@ export default function LandingPage() {
               </button>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Main Hero Section */}
-      <main id="home" className="relative z-10 px-6 pt-20 pb-32">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {/* Floating Elements */}
-            <div className="absolute top-10 left-10 w-4 h-4 bg-blue-500 rounded-full opacity-60 animate-bounce"></div>
-            <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full opacity-40 animate-pulse"></div>
-            <div className="absolute bottom-20 left-1/4 w-3 h-3 bg-emerald-400 rounded-full opacity-50 animate-ping"></div>
+        {/* Main Hero Section */}
+        <main id="home" className="relative z-10 px-6 pt-20 pb-32">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              {/* Floating Elements */}
+              <div className="absolute top-10 left-10 w-4 h-4 bg-blue-500 rounded-full opacity-60 animate-bounce"></div>
+              <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full opacity-40 animate-pulse"></div>
+              <div className="absolute bottom-20 left-1/4 w-3 h-3 bg-emerald-400 rounded-full opacity-50 animate-ping"></div>
 
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none">
-              <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
-                CarbonX
-              </span>
-            </h1>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none">
+                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
+                  CarbonX
+                </span>
+              </h1>
 
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-light mb-8 text-blue-300 tracking-wider">
-              SAVE OUR PLANET
-            </h2>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-light mb-8 text-blue-300 tracking-wider">
+                SAVE OUR PLANET
+              </h2>
 
-            <div className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto overflow-hidden">
-              {/* Pass setIndex to AutoSwapParagraph if you want to sync dots */}
-              <AutoSwapParagraph />
-            </div>
+              <div className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto overflow-hidden">
+                {/* Pass setIndex to AutoSwapParagraph if you want to sync dots */}
+                <AutoSwapParagraph />
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-12 py-4 text-lg font-semibold border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transform hover:scale-105">
-                LEARN MORE
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-blue-400 hover:text-white px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm hover:scale-105">
-                WATCH DEMO
-              </Button>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* Enhanced Features Section */}
-      <section id="features" className="relative z-10 px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
-                Revolutionary Technology
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Experience the future of environmental conservation with our cutting-edge platform
-            </p>
-            <div className="flex justify-center items-center space-x-4 mt-8">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <div className="w-16 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-              <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-              <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-12 py-4 text-lg font-semibold border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transform hover:scale-105">
+                  LEARN MORE
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-blue-400 hover:text-white px-12 py-4 text-lg font-semibold transition-all duration-300 backdrop-blur-sm hover:scale-105">
+                  WATCH DEMO
+                </Button>
+              </div>
             </div>
           </div>
         </main>
+
+        {/* Enhanced Features Section */}
+        <section id="features" className="relative z-10 px-6 py-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
+                  Revolutionary Technology
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Experience the future of environmental conservation with our cutting-edge platform
+              </p>
+              <div className="flex justify-center items-center space-x-4 mt-8">
+                <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-16 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+                <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Enhanced Features Section */}
         <section id="features" className="relative z-10 px-6 py-20">
@@ -705,7 +704,7 @@ export default function LandingPage() {
               </div>
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-red-600 bg-clip-text text-transparent">
-                 BLOCK BUSTER
+                 BLOCKBUSTERS
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -949,21 +948,11 @@ export default function LandingPage() {
               © 2025 CarbonX. Building the future of carbon credit management.
             </p>
             <p className="text-sm text-gray-500">
-              Smart India Hackathon 2025 | Team Task Titans
+              Smart India Hackathon 2025 | Team BlockBusters
             </p>
           </div>
-          <p className="text-gray-400 mb-4">
-            © 2025 CarbonX. Building the future of carbon credit management.
-          </p>
-          <p className="text-sm text-gray-500">
-            Smart India Hackathon 2025 | Team Task Titans
-          </p>
-        </div>
-        <div>
-          DNS Powered by <a href="http://www.dnsExit.com">DNS</a><a href="http://www.dnsExit.com">EXIT.COM</a>
-        </div>
-      </footer>
-    </div>
-  </>
+        </footer>
+      </div>
+    </SpaceBackground>
   );
 }

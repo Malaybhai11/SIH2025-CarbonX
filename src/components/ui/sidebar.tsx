@@ -37,7 +37,7 @@ export default function Sidebar({ className = "" }: SidebarProps) {
         return [
           { href: "/dashboard/admin", label: "Overview", icon: Home },
           { href: "/dashboard/admin/users", label: "User Management", icon: Users },
-          { href: "/dashboard/admin/projects", label: "Project Management", icon: FileText },
+          { href: "/dashboard/admin/review-project", label: "Project Management", icon: FileText },
           { href: "/dashboard/admin/verification", label: "Verification Queue", icon: CheckCircle },
           { href: "/dashboard/admin/analytics", label: "System Analytics", icon: BarChart3 },
           { href: "/dashboard/admin/settings", label: "Settings", icon: Settings },

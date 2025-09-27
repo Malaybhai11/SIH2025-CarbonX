@@ -70,7 +70,8 @@ export default function AdminDashboard() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <Button className="bg-green-600 hover:bg-green-700">
+          <Button className="bg-green-600 hover:bg-green-700"
+                  onClick = {() => router.push('/dashboard/admin/settings')}>
             <Shield className="w-4 h-4 mr-2" />
             System Settings
           </Button>

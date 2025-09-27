@@ -22,14 +22,14 @@ export default function Navbar() {
         return [
           ...baseItems,
           { href: "/dashboard/admin", label: "NCCR Admin Panel", icon: Shield },
-          { href: "/projects", label: "All Projects", icon: FileText },
-          { href: "/analytics", label: "Analytics", icon: BarChart3 },
+          { href: "/dashboard/admin/review-project", label: "Review Projects", icon: FileText },
+          { href: "/dashboard/admin/analytics", label: "Analytics", icon: BarChart3 },
         ];
       case "organization":
         return [
           ...baseItems,
-          { href: "/dashboard/organization", label: "My Projects", icon: FileText },
-          { href: "/submit-project", label: "Submit Project", icon: FileText },
+          { href: "/dashboard/projects", label: "My Projects", icon: FileText },
+          { href: "/submit", label: "Submit Project", icon: FileText },
         ];
       case "local":
         return [

@@ -2,7 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,10 @@ import {
   ArrowLeft,
   ArrowRight,
   Save,
-  Send
+  Send,
+  Loader2,
+  X,
+  Plus
 } from "lucide-react";
 
 interface ProjectFormData {
@@ -35,6 +38,14 @@ interface ProjectFormData {
   methodology: string;
   baseline: string;
   monitoring: string;
+}
+
+interface UploadedFile {
+  file: File;
+  uploaded: boolean;
+  url?: string;
+  path?: string;
+  error?: string;
 }
 
 const initialFormData: ProjectFormData = {
@@ -53,7 +64,7 @@ const initialFormData: ProjectFormData = {
 
 const projectTypes = [
   "Reforestation",
-  "Afforestation",
+  "Afforestation", 
   "Renewable Energy",
   "Energy Efficiency",
   "Methane Capture",
@@ -75,8 +86,13 @@ export default function SubmitProject() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<ProjectFormData>(initialFormData);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  
+  // Create a ref for the file input
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const role = (user?.unsafeMetadata as any)?.role;
@@ -89,13 +105,156 @@ export default function SubmitProject() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // File validation function
+  const validateFile = (file: File): string | null => {
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    const allowedExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'csv'];
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'text/csv'
+    ];
+    
+    if (file.size > maxSize) {
+      return `File "${file.name}" is too large. Maximum size is 10MB.`;
+    }
+    
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+      return `File "${file.name}" has an unsupported format. Allowed: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, CSV`;
+    }
+    
+    if (!allowedTypes.includes(file.type) && file.type !== '') {
+      // Some browsers don't set file.type properly, so we also check extension
+      return `File "${file.name}" has an unsupported type.`;
+    }
+    
+    return null;
+  };
+
+  const processFiles = (files: FileList | File[]) => {
+    const fileArray = Array.from(files);
+    const validFiles: File[] = [];
+    const errors: string[] = [];
+
+    fileArray.forEach(file => {
+      const error = validateFile(file);
+      if (error) {
+        errors.push(error);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (errors.length > 0) {
+      alert(errors.join('\n'));
+    }
+
+    if (validFiles.length > 0) {
+      const newFiles = validFiles.map(file => ({
+        file,
+        uploaded: false
+      }));
+      setUploadedFiles(prev => [...prev, ...newFiles]);
+    }
+  };
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    setUploadedFiles(prev => [...prev, ...files]);
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      processFiles(files);
+    }
+    // Reset input value to allow selecting the same files again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Drag and drop handlers
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      processFiles(files);
+    }
+  };
+
+  // Function to trigger file input click
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   const removeFile = (index: number) => {
     setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const uploadFiles = async (projectId: string): Promise<string[]> => {
+    if (uploadedFiles.length === 0) return [];
+
+    setIsUploading(true);
+    const formData = new FormData();
+    
+    uploadedFiles.forEach(({ file }) => {
+      formData.append('files', file);
+    });
+    formData.append('projectId', projectId);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Upload failed');
+      }
+
+      const { files } = await response.json();
+      
+      // Update uploaded files state
+      setUploadedFiles(prev => prev.map((uploadedFile, index) => ({
+        ...uploadedFile,
+        uploaded: true,
+        url: files[index]?.url,
+        path: files[index]?.path
+      })));
+
+      return files.map((file: any) => file.url);
+    } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const nextStep = () => {
@@ -112,20 +271,53 @@ export default function SubmitProject() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    router.push('/dashboard/organization');
+    
+    try {
+      // Generate temporary project ID for file uploads
+      const tempProjectId = `temp_${Date.now()}`;
+      
+      // Upload files first
+      const fileUrls = await uploadFiles(tempProjectId);
+      
+      // Submit project data
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          fileUrls
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Submission failed');
+      }
+
+      const { project } = await response.json();
+      
+      // Success
+      alert('Project submitted successfully! You will be notified once it is reviewed.');
+      router.push('/dashboard/organization');
+      
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert(`Failed to submit project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isStepValid = () => {
     switch (currentStep) {
       case 1:
-        return formData.name && formData.description;
+        return formData.name.trim() && formData.description.trim();
       case 2:
-        return formData.type && formData.location && formData.startDate && formData.endDate;
+        return formData.type && formData.location.trim() && formData.startDate && formData.endDate;
       case 3:
-        return formData.methodology && formData.baseline && formData.monitoring;
+        return formData.methodology.trim() && formData.baseline.trim() && formData.monitoring.trim();
       case 4:
         return uploadedFiles.length > 0;
       case 5:
@@ -271,46 +463,99 @@ export default function SubmitProject() {
         return (
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Upload Supporting Documents</label>
-              <div className="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center">
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400 mb-4">Upload project documents, reports, and evidence</p>
-                <Input
+              <label className="block text-sm font-medium text-white mb-2">Upload Supporting Documents *</label>
+              <div 
+                className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer ${
+                  isDragging 
+                    ? 'border-blue-500 bg-blue-900/20' 
+                    : 'border-gray-600 hover:border-gray-500'
+                }`}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={triggerFileInput}
+              >
+                <Upload className={`w-12 h-12 mx-auto mb-4 ${isDragging ? 'text-blue-400' : 'text-gray-400'}`} />
+                <p className={`mb-4 ${isDragging ? 'text-blue-300' : 'text-gray-400'}`}>
+                  {isDragging ? 'Drop files here' : 'Click to upload or drag and drop files'}
+                </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  Supported formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, CSV (Max: 10MB each)
+                </p>
+                
+                {/* Hidden file input */}
+                <input
+                  ref={fileInputRef}
                   type="file"
                   multiple
                   onChange={handleFileUpload}
-                  accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.csv"
                   className="hidden"
-                  id="file-upload"
                 />
-                <label htmlFor="file-upload">
-                  <Button variant="outline" className="cursor-pointer">
-                    Choose Files
-                  </Button>
-                </label>
+                
+                <Button 
+                  type="button"
+                  variant="outline" 
+                  className="border-gray-600 text-white bg-gray-800 hover:bg-gray-700"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    triggerFileInput();
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Choose Files
+                </Button>
               </div>
             </div>
 
+            {uploadedFiles.length === 0 && (
+              <div className="text-sm text-yellow-400 bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-3">
+                Please upload at least one supporting document to continue.
+              </div>
+            )}
+
             {uploadedFiles.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-white font-medium">Uploaded Files:</h4>
-                {uploadedFiles.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <FileText className="w-5 h-5 text-blue-400" />
-                      <span className="text-white">{file.name}</span>
-                      <Badge variant="outline">{(file.size / 1024 / 1024).toFixed(2)} MB</Badge>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFile(index)}
-                      className="text-red-400 hover:text-red-300"
+                <h4 className="text-white font-medium">Uploaded Files ({uploadedFiles.length}):</h4>
+                <div className="max-h-64 overflow-y-auto space-y-2">
+                  {uploadedFiles.map((uploadedFile, index) => (
+                    <div 
+                      key={`${uploadedFile.file.name}-${uploadedFile.file.size}-${index}`}
+                      className="flex items-center justify-between p-3 bg-gray-800 rounded-lg border border-gray-700"
                     >
-                      Remove
-                    </Button>
-                  </div>
-                ))}
+                      <div className="flex items-center space-x-3 flex-1 min-w-0">
+                        <FileText className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <span className="text-white block truncate" title={uploadedFile.file.name}>
+                            {uploadedFile.file.name}
+                          </span>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <Badge variant="outline" className="text-xs">
+                              {(uploadedFile.file.size / 1024 / 1024).toFixed(2)} MB
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {uploadedFile.file.type || 'Unknown type'}
+                            </Badge>
+                            {uploadedFile.uploaded && (
+                              <Badge className="bg-green-600 text-xs">Uploaded</Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFile(index)}
+                        className="text-red-400 hover:text-red-300 hover:bg-red-900/20 flex-shrink-0 ml-2"
+                        type="button"
+                        disabled={isUploading}
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -336,7 +581,15 @@ export default function SubmitProject() {
                 </div>
                 <div>
                   <span className="text-gray-400">Expected Credits:</span>
-                  <p className="text-white">{formData.expectedCredits}</p>
+                  <p className="text-white">{formData.expectedCredits || 'Not specified'}</p>
+                </div>
+                <div>
+                  <span className="text-gray-400">Documents:</span>
+                  <p className="text-white">{uploadedFiles.length} files</p>
+                </div>
+                <div>
+                  <span className="text-gray-400">Timeline:</span>
+                  <p className="text-white">{formData.startDate} to {formData.endDate}</p>
                 </div>
                 <div className="md:col-span-2">
                   <span className="text-gray-400">Description:</span>
@@ -366,7 +619,7 @@ export default function SubmitProject() {
     <DashboardLayout>
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Submit Carbon Project</h1>
+          <h1 className="text-3xl font-bold text-white">Submit Carbon Project</h1>
           <Button variant="outline" onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
@@ -440,11 +693,19 @@ export default function SubmitProject() {
             ) : (
               <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isUploading || !isStepValid()}
                 className="bg-green-600 hover:bg-green-700"
               >
                 {isSubmitting ? (
-                  "Submitting..."
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : isUploading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Uploading Files...
+                  </>
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-2" />

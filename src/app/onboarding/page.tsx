@@ -5,10 +5,12 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useApiClient } from "@/lib/api-client";
 
 export default function OnboardingPage() {
   const { user } = useUser();
   const router = useRouter();
+  const apiClient = useApiClient();
   
   const [role, setRole] = useState("");
   const [organizationType, setOrganizationType] = useState("");
@@ -46,7 +48,19 @@ export default function OnboardingPage() {
       // Assign permissions based on role
       const assignedPermissions = getPermissionsForRole(role);
 
-      // Update user metadata with onboarding info
+      // Create/update user in Supabase
+      const response = await apiClient.createUser({
+        role,
+        metadata: {
+          organization: finalOrganizationType,
+          permissions: assignedPermissions,
+          onboardingComplete: true
+        }
+      });
+
+      console.log('User created/updated in Supabase:', response);
+
+      // Also update Clerk metadata for backward compatibility
       await user?.update({
         unsafeMetadata: {
           role,
@@ -55,6 +69,9 @@ export default function OnboardingPage() {
           onboardingComplete: true
         }
       });
+
+      // Show success message
+      alert(`Welcome! Your account has been set up as a ${role === 'admin' ? 'NCCR Admin' : role === 'organization' ? 'Organization' : 'Local Contributor'}.`);
 
       // Redirect based on role
       switch (role) {
@@ -72,7 +89,8 @@ export default function OnboardingPage() {
       }
     } catch (error) {
       console.error("Onboarding error:", error);
-      alert("Failed to complete onboarding. Please try again.");
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      alert(`Failed to complete onboarding: ${errorMessage}. Please try again.`);
     } finally {
       setLoading(false);
     }
