@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
 import SpaceBackground from "@/components/SpaceBackground";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 // Dynamically import Lottie components with proper setup
 const AccuracyLottie = dynamic(() => import("lottie-react"), {
@@ -89,6 +91,7 @@ import ngosAnimation from "@/components/lotties/NGOS.json";
 import transparencyAnimation from "@/components/lotties/TRANSPARENCY.json";
 import verificationAnimation from "@/components/lotties/VERIFICATION.json";
 import AutoSwapParagraph from "@/components/AutoSwapParagraph";
+import { User } from "@clerk/nextjs/server";
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -122,6 +125,15 @@ export default function LandingPage() {
     scrollToSection(sectionId);
   };
 
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.push('/dashboard');
+    }
+  }, [isSignedIn, isLoaded, router]);
+  
   return (
     <SpaceBackground>
       <div className="min-h-screen bg-black text-white overflow-hidden relative">
