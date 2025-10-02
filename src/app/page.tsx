@@ -221,6 +221,11 @@ export default function LandingPage() {
               <h2 className="text-2xl md:text-4xl lg:text-5xl font-light mb-8 text-blue-300 tracking-wider">
                 SAVE OUR PLANET
               </h2>
+              <h3>
+                <span className="text-1xl md:text-2xl lg:text-3xl font-light mb-8 text-blue-300 tracking-wider">
+                  BY TEAM ID :- 61769
+                </span>
+              </h3>
 
               <div className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto overflow-hidden">
                 {/* Pass setIndex to AutoSwapParagraph if you want to sync dots */}
@@ -238,30 +243,7 @@ export default function LandingPage() {
             </div>
           </div>
         </main>
-
-        {/* Enhanced Features Section */}
-        <section id="features" className="relative z-10 px-6 py-20">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
-                  Revolutionary Technology
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Experience the future of environmental conservation with our cutting-edge platform
-              </p>
-              <div className="flex justify-center items-center space-x-4 mt-8">
-                <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500"></div>
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <div className="w-16 h-px bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-                <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        
         {/* Enhanced Features Section */}
         <section id="features" className="relative z-10 px-6 py-20">
           <div className="max-w-7xl mx-auto">
